@@ -7,11 +7,10 @@ render: (output) ->
     output = JSON.parse(output)
     html = '';
     for i of output.music_display
-        if output.music_display[i].art == ""
-            output.music_display[i].art = "music-display.widget/images/default.png"
         html += "<div class=\"container\" style=\"display:flex; flex-direction:row;\">"
         html +=     "<div class=\"art-container\">"
-        html +=         "<div class=\"art\" id=\"art_one\" style=\"background-image:url('#{output.music_display[i].art}');\"></div>"
+        if output.music_display[i].art != ""
+            html +=         "<div class=\"art\" id=\"art_one\" style=\"background-image:url('#{output.music_display[i].art}');\"></div>"
         html +=     "</div>"
         html +=     "<div class=\"song-info\" style=\"display:flex; flex-direction:column; justify-content:flex-end;\">"
         html +=         "<div id=\"song-title\">#{output.music_display[i].title}</div>"
