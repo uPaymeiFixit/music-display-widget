@@ -2,13 +2,16 @@
 
 # Get a current list of processes to look for our media players in
 tell application "System Events"
-	set myList to (name of every process)
+	set processes_list to (name of every process)
 end tell
+
+# We will set this to true if we find a service running, so that we can remove the comma from the last one
+set found to false
 
 set output to "{\"music_display\":{"
 
 ################################### HERMES ###################################
-if myList contains "Hermes" then
+if processes_list contains "Hermes" then
 	tell application "Hermes"
 		# If Hermes is running, create our output
 		set _art to current song's artwork URL
@@ -18,13 +21,13 @@ if myList contains "Hermes" then
 		set _album to album of current song
 		
 		set output to output & my JSONify("Hermes", _playing, _art, _title, _artist, _album)
-		set output to output & "," # This is annoying, we have to do this because JSON needs the last element to not have a comma
+		set found to true
 	end tell
 end if
 ################################### END HERMES ###################################
 
 ################################### SPOTIFY ###################################
-if myList contains "Spotify" then
+if processes_list contains "Spotify" then
 	tell application "Spotify"
 		# This is kind of a hacky way to get the album art in spotify, as the URL we are feeding to curl already returns JSON
 		# with all of the information (title, artist, album, art, etc) that we need. However, in an effort to keep outputs
@@ -42,12 +45,18 @@ if myList contains "Spotify" then
 		set _album to album of current track
 		
 		set output to output & my JSONify("Spotify", _playing, _art, _title, _artist, _album)
+		set found to true
 	end tell
 end if
 ################################### END SPOTIFY ###################################
 
 on JSONify(player, playing, art, title, artist, album)
-	return "\"" & player & "\":{\"playing\":" & playing & ",\"art\":\"" & art & "\",\"title\":\"" & title & "\",\"artist\":\"" & artist & "\",\"album\":\"" & album & "\"}"
+	return "\"" & player & "\":{\"playing\":" & playing & ",\"art\":\"" & art & "\",\"title\":\"" & title & "\",\"artist\":\"" & artist & "\",\"album\":\"" & album & "\"},"
 end JSONify
+
+# If one of the players is running, remove the last comma, because JSON freaks out otherwise.
+if found is true then
+	set output to text 1 thru -2 of output
+end if
 
 return output & "}}"

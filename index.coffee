@@ -3,6 +3,7 @@ command: "osascript 'music-display.widget/music-display.applescript'"
 refreshFrequency: 5000
 
 render: (output) ->
+    console.log output
     output = JSON.parse(output)
     html = '';
     for i of output.music_display
@@ -11,7 +12,6 @@ render: (output) ->
         html += "<div class=\"container\" style=\"display:flex; flex-direction:row;\">"
         html +=     "<div class=\"art-container\">"
         html +=         "<div class=\"art\" id=\"art_one\" style=\"background-image:url('#{output.music_display[i].art}');\"></div>"
-        # html +=         "<img id=\"art_two\" src=\"#{output.music_display[i].art}\" />"
         html +=     "</div>"
         html +=     "<div class=\"song-info\" style=\"display:flex; flex-direction:column; justify-content:flex-end;\">"
         html +=         "<div id=\"song-title\">#{output.music_display[i].title}</div>"
