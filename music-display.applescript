@@ -12,12 +12,13 @@ if myList contains "Hermes" then
 	tell application "Hermes"
 		# If Hermes is running, create our output
 		set _art to current song's artwork URL
-		set _playing to playback state
+		set _playing to (playback state = playing)
 		set _title to title of current song
 		set _artist to artist of current song
 		set _album to album of current song
 		
 		set output to output & my JSONify("Hermes", _playing, _art, _title, _artist, _album)
+		set output to output & "," # This is annoying, we have to do this because JSON needs the last element to not have a comma
 	end tell
 end if
 ################################### END HERMES ###################################
@@ -35,7 +36,7 @@ if myList contains "Spotify" then
 		set short_id to long_id's third text item
 		set _art to do shell script "curl -X GET 'https://api.spotify.com/v1/tracks/" & short_id & "' | sed -n 12p | awk -F\\\\\\\" '{ print $4}'"
 		
-		set _playing to player state
+		set _playing to (player state = playing)
 		set _title to name of current track
 		set _artist to artist of current track
 		set _album to album of current track
@@ -46,7 +47,7 @@ end if
 ################################### END SPOTIFY ###################################
 
 on JSONify(player, playing, art, title, artist, album)
-	return "\"" & player & "\":{\"playing\":" & playing & ",\"art\":\"" & art & "\",\"title\":\"" & title & "\",\"artist\":\"" & artist & "\",\"album\":\"" & album & "\"},"
+	return "\"" & player & "\":{\"playing\":" & playing & ",\"art\":\"" & art & "\",\"title\":\"" & title & "\",\"artist\":\"" & artist & "\",\"album\":\"" & album & "\"}"
 end JSONify
 
 return output & "}}"
