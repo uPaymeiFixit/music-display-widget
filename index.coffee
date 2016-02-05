@@ -1,11 +1,9 @@
 command: "osascript 'music-display.widget/music-display.applescript'"
 
-refreshFrequency: 500000
+refreshFrequency: 5000
 
 render: (output) ->
-    console.log output
     output = JSON.parse(output)
-    console.log output.music_display
     html = '';
     for i of output.music_display
         if output.music_display[i].art == ""
@@ -52,78 +50,5 @@ style: """
 
     .container
         padding: 0px
-
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-Thin.ttf') format('truetype')
-        font-weight: 100
-        font-style: normal
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-ThinItalic.ttf') format('truetype')
-        font-weight: 100
-        font-style: italic
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-Light.ttf') format('truetype')
-        font-weight: 300
-        font-style: normal
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-LightItalic.ttf') format('truetype')
-        font-weight: 300
-        font-style: italic
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-Regular.ttf') format('truetype')
-        font-weight: 400
-        font-style: normal
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-RegularItalic.ttf') format('truetype')
-        font-weight: 400
-        font-style: italic
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-Medium.ttf') format('truetype')
-        font-weight: 500
-        font-style: normal
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-MediumItalic.ttf') format('truetype')
-        font-weight: 500
-        font-style: italic
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-Bold.ttf') format('truetype')
-        font-weight: 700
-        font-style: normal
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-BoldItalic.ttf') format('truetype')
-        font-weight: 700
-        font-style: italic
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-Black.ttf') format('truetype')
-        font-weight: 900
-        font-style: normal
-
-    @font-face
-        font-family: Roboto
-        src: url('music-display.widget/fonts/Roboto-BlackItalic.ttf') format('truetype')
-        font-weight: 900
-        font-style: italic
 
 """
