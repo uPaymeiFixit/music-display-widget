@@ -33,13 +33,13 @@ if processes_list contains "Spotify" then
 		# with all of the information (title, artist, album, art, etc) that we need. However, in an effort to keep outputs
 		# from each media player consistant, I will leave it this way for now.
 		# Here is an example of what our shell script is searching through:
-		#    https://api.spotify.com/v1/tracks/5oUV6yWdDM0R9Q2CizRhIt
+		#    https://open.spotify.com/track/5oUV6yWdDM0R9Q2CizRhIt
 		# Real Shell call 
-		#   curl -s -X GET 'https://api.spotify.com/v1/tracks/46SNlNPyoPOF19hGF4dbBD' | grep -o 'https:\/\/i.scdn.co\/image\/.\{40\}' | head -1
+		#   curl -s -X GET 'https://open.spotify.com/track/46SNlNPyoPOF19hGF4dbBD' | grep -o 'https:\/\/i.scdn.co\/image\/.\{40\}' | head -1
 		set long_id to id of current track
 		set AppleScript's text item delimiters to ":"
 		set short_id to long_id's third text item
-		set _art to do shell script "curl -s -X GET 'https://api.spotify.com/v1/tracks/" & short_id & "' | grep -o 'https:\\/\\/i.scdn.co\\/image\\/.\\{40\\}' | head -1"
+		set _art to do shell script "curl -s -X GET 'https://open.spotify.com/track/" & short_id & "' | grep -o 'https:\\/\\/i.scdn.co\\/image\\/.\\{40\\}' | head -1"
 		
 		set _playing to (player state = playing)
 		set _title to name of current track
