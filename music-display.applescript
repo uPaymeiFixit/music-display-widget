@@ -11,19 +11,19 @@ set found to false
 set output to "{\"music_display\":{"
 
 ################################### HERMES ###################################
-if processes_list contains "Hermes" then
-	tell application "Hermes"
-		# If Hermes is running, create our output
-		set _art to current song's artwork URL
-		set _playing to (playback state = playing)
-		set _title to title of current song
-		set _artist to artist of current song
-		set _album to album of current song
-		
-		set output to output & my JSONify("Hermes", _playing, _art, _title, _artist, _album)
-		set found to true
-	end tell
-end if
+-- if processes_list contains "Hermes" then
+-- 	tell application "Hermes"
+-- 		# If Hermes is running, create our output
+-- 		set _art to current song's artwork URL
+-- 		set _playing to (playback state = playing)
+-- 		set _title to title of current song
+-- 		set _artist to artist of current song
+-- 		set _album to album of current song
+
+-- 		set output to output & my JSONify("Hermes", _playing, _art, _title, _artist, _album)
+-- 		set found to true
+-- 	end tell
+-- end if
 ################################### END HERMES ###################################
 
 ################################### SPOTIFY ###################################
